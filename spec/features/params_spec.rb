@@ -366,7 +366,7 @@ describe "/payment/new" do
 end
 
 describe "/payment/new" do
-  it "formats large dollar amounts on the results page", points: 1, hint: h("to_s_currency") do
+  it "formats large dollar amounts on the results page", points: 1, hint: h("to_fs_currency") do
     visit "/payment/new"
 
     # fill_in "APR", with: 4.10
@@ -449,7 +449,7 @@ describe "/payment/new" do
 end
 
 describe "/payment/new" do
-  it "calculates the monthly payment correctly", points: 1, hint: h("to_s_currency") do
+  it "calculates the monthly payment correctly", points: 1, hint: h("to_fs_currency") do
     visit "/payment/new"
 
     # fill_in "APR", with: 4.10
