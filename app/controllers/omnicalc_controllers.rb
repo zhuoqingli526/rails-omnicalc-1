@@ -1,39 +1,58 @@
-class DiceController < ApplicationController
+class OmnicalcController < ApplicationController
   def homepage
-    render({ :template => "dice_templates/home"})
+    render({ :template => "omnicalc_templates/homepage"})
   end
 
-  def dynamic
-    @rolls = []
+  def square_form
 
-    @num_dice = params.fetch("number_of_dice").to_i
-    @num_sides = params.fetch("number_of_sides").to_i
+    render({ :template => "omnicalc_templates/square_form"})
+  end
+
+  def square_result
+
+    @number = params.fetch("number")
+    @result = @number.to_f ** 2
+
+    render({ :template => "omnicalc_templates/square_result"})
+    
+  def square_root_form
+
+    render({ :template => "omnicalc_templates/square_root_form"})
+
+  def square_root_result
+
+    @number = params.fetch("number")
+    @result = Math.sqrt(@number.to_f)
+
+    render({ :template => "omnicalc_templates/square_root_result"})
   
+  def random_form
 
-    @num_dice.times do
-      die = rand(1..@num_sides)  
-      @rolls.push(die)
-      
-    end
-    render({ :template => "dice_templates/dynamic"})
-  end
+    render({ :template => "omnicalc_templates/random_form"}
+  
+  def random_result
 
+    @min = params.fetch("user_min").to_f
+    @max = params.fetch("user_max").to_f
+    @random_result = rand(@min..@max)
+
+    render({ :template => "omnicalc_templates/random_result"}
+
+  def payment_form
+
+    render({ :template => "omnicalc_templates/payment_form"}
+
+  def payment_result
+
+    @apr = params.fetch("user_apr").to_f
+    @r = @apr/100/12
+    @year = params.fetch("user_years").to_i
+    @n = @year*12
+    @pv = params.fetch("user_pv").to_f
+    @numerator = @r * @pv
+    @denumerator = 1 - (1+@r) ** -@n
+  
+    @payment_result = @numerator / @denumerator
+
+    render({ :template => "omnicalc_templates/payment_result"}
 end
-
-get("/", { :controller => "omnicalc", :action => "homepage"})
-
-get("/square/new", { :controller => "omnicalc", :action => "square_form"})
-
-get("/square/results", { :controller => "omnicalc", :action => "square_result"})
-
-get("/square_root/new", { :controller => "omnicalc", :action => "square_root_form"})
-
-get("/square_root/results", { :controller => "omnicalc", :action => "square_root_result"})
-
-get("/random/new", { :controller => "omnicalc", :action => "random_form"})
-
-get("/random/results", { :controller => "omnicalc", :action => "random_result"})
-
-get("/payment/new", { :controller => "omnicalc", :action => "payment_form"})
-
-get("/payment/results", { :controller => "omnicalc", :action => "payment_result"})
