@@ -1,49 +1,44 @@
 class OmnicalcController < ApplicationController
   def homepage
-    render({ :template => "omnicalc_templates/homepage"})
+    render({ :template => "omnicalc_templates/homepage" })
   end
 
   def square_form
-
-    render({ :template => "omnicalc_templates/square_form"})
+    render({ :template => "omnicalc_templates/square_form" })
   end
 
   def square_result
-
     @number = params.fetch("number")
     @result = @number.to_f ** 2
+    render({ :template => "omnicalc_templates/square_result" })
+  end
 
-    render({ :template => "omnicalc_templates/square_result"})
-    
   def square_root_form
-
-    render({ :template => "omnicalc_templates/square_root_form"})
+    render({ :template => "omnicalc_templates/square_root_form" })
+  end
 
   def square_root_result
-
     @number = params.fetch("number")
     @result = Math.sqrt(@number.to_f)
+    render({ :template => "omnicalc_templates/square_root_result" })
+  end
 
-    render({ :template => "omnicalc_templates/square_root_result"})
-  
   def random_form
+    render({ :template => "omnicalc_templates/random_form" })
+  end
 
-    render({ :template => "omnicalc_templates/random_form"}
-  
   def random_result
-
     @min = params.fetch("user_min").to_f
     @max = params.fetch("user_max").to_f
     @random_result = rand(@min..@max)
-
-    render({ :template => "omnicalc_templates/random_result"}
+    render({ :template => "omnicalc_templates/random_result" })
+  end
 
   def payment_form
-
-    render({ :template => "omnicalc_templates/payment_form"}
+    render({ :template => "omnicalc_templates/payment_form" })
+  end
 
   def payment_result
-
     @apr = params.fetch("user_apr").to_f
     @r = @apr/100/12
     @year = params.fetch("user_years").to_i
@@ -51,8 +46,7 @@ class OmnicalcController < ApplicationController
     @pv = params.fetch("user_pv").to_f
     @numerator = @r * @pv
     @denumerator = 1 - (1+@r) ** -@n
-  
     @payment_result = @numerator / @denumerator
-
-    render({ :template => "omnicalc_templates/payment_result"}
+    render({ :template => "omnicalc_templates/payment_result" })
+  end
 end
